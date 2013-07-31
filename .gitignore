@@ -12,6 +12,7 @@
 
 # Qt-es
 
+EKChat
 *.pro.user
 *.pro.user.*
 moc_*.cpp
