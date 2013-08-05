@@ -41,6 +41,8 @@ ChatApplication::ChatApplication(QObject *parent): QObject(parent) {
     _chatText = root->findChild<QObject*>("chatText");
     _input = root->findChild<QObject*>("input");
 
+    connect(_input, SIGNAL(accepted()), this, SLOT(onClicked()));
+
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(onTimeOut()));
     timer->start(1000);
@@ -87,6 +89,8 @@ void ChatApplication::onClicked() {
 
     NetworkRequest *request = new NetworkRequest(url);
     request->post(_input->property("text").toByteArray());
+
+    _input->setProperty("text", "");
 
     connect(request, SIGNAL(finished(QNetworkReply*)), this, SLOT(onPostFinished(QNetworkReply*)));
     connect(request, SIGNAL(finished(QNetworkReply*)), request, SLOT(deleteLater()));
