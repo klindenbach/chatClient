@@ -15,20 +15,23 @@
 #include <QNetworkAccessManager>
 #include <QTimer>
 
-#include "chat/ChatApplication.hpp"
+#include "chat/ConversationWindow.hpp"
+#include "chat/ContactsWindow.hpp"
 #include "chat/net/NetworkRequest.hpp"
 
-using chat::ChatApplication;
+using chat::ConversationWindow;
 using chat::net::NetworkRequest;
 
-ChatApplication::ChatApplication(QObject *parent): QObject(parent) {
+ConversationWindow::ConversationWindow(QString conversationID, QObject *parent): QObject(parent), _conversationID(conversationID) {
     QQmlEngine *engine = new QQmlEngine;
     QQmlComponent *component = new QQmlComponent(engine);
     component->loadUrl(QUrl("qrc:/assets/ChatWindow.qml"));
 
     QObject *root;
-    if (component->isReady())
+    if (component->isReady()) {
         root = component->create();
+        root->setProperty("title", "Conversation ID: " + conversationID);
+    }
     else {
         qWarning() << component->errorString();
         return;
@@ -48,7 +51,7 @@ ChatApplication::ChatApplication(QObject *parent): QObject(parent) {
     timer->start(1000);
 }
 
-void ChatApplication::onTimeOut() {
+void ConversationWindow::onTimeOut() {
     QUrl url("http://localhost:8080/chatServer/getMessages");
     QUrlQuery query;
     query.addQueryItem("after", "1");
@@ -61,7 +64,7 @@ void ChatApplication::onTimeOut() {
     connect(request, SIGNAL(finished(QNetworkReply*)), request, SLOT(deleteLater()));
 }
 
-void ChatApplication::onMessages(QNetworkReply *reply) {
+void ConversationWindow::onMessages(QNetworkReply *reply) {
 
     QByteArray contents = reply->readAll();
     QJsonDocument jsonDoc = QJsonDocument::fromJson(contents);
@@ -76,13 +79,13 @@ void ChatApplication::onMessages(QNetworkReply *reply) {
     _chatText->setProperty("text", string);
 }
 
-void ChatApplication::onClicked() {
+void ConversationWindow::onClicked() {
 
     QUrl url("http://localhost:8080/chatServer/postMessage");
     QUrlQuery query;
-    query.addQueryItem("sender", "konrad@EKCHAT.com");
+    query.addQueryItem("sender", chat::ContactsWindow::userName);
     query.addQueryItem("timeSent", QString::number(QDateTime::currentDateTime().toTime_t()));
-    query.addQueryItem("conversation", "1");
+    query.addQueryItem("conversation", _conversationID);
     url.setQuery(query);
 
     NetworkRequest *request = new NetworkRequest(url);
@@ -94,7 +97,7 @@ void ChatApplication::onClicked() {
     connect(request, SIGNAL(finished(QNetworkReply*)), request, SLOT(deleteLater()));
 }
 
-void ChatApplication::onPostFinished(QNetworkReply *reply) {
+void ConversationWindow::onPostFinished(QNetworkReply *reply) {
     qDebug() << reply->readAll();
     qDebug() << reply->errorString();
 }

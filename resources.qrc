@@ -5,4 +5,7 @@
     <qresource prefix="/">
         <file>assets/Button.qml</file>
     </qresource>
+    <qresource prefix="/">
+        <file>assets/ContactsWindow.qml</file>
+    </qresource>
 </RCC>

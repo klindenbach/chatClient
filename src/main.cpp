@@ -1,12 +1,12 @@
 #include <QApplication>
 
-#include "chat/ChatApplication.hpp"
+#include "chat/ContactsWindow.hpp"
 
 int main(int argc, char **argv) {
 
     QApplication app(argc, argv);
 
-    chat::ChatApplication *chatApplication = new chat::ChatApplication;
+    new chat::ContactsWindow;
 
     return app.exec();
 }

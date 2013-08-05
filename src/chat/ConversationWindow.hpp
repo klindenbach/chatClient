@@ -6,12 +6,12 @@
 
 namespace chat {
 
-class ChatApplication : public QObject {
+class ConversationWindow : public QObject {
     Q_OBJECT
 
     public:
-        ChatApplication(QObject *parent = 0);
-        virtual ~ChatApplication() {};
+        ConversationWindow(QString conversationID, QObject *parent = 0);
+        virtual ~ConversationWindow() {};
         Q_SLOT void onClicked();
         Q_SLOT void onPostFinished(QNetworkReply*);
         Q_SLOT void onMessages(QNetworkReply*);
@@ -20,6 +20,7 @@ class ChatApplication : public QObject {
     private:
         QObject *_chatText;
         QObject *_input;
+        QString _conversationID;
 };
 
 }
