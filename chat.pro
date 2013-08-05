@@ -6,15 +6,14 @@ cache()
 
 TEMPLATE = app
 TARGET = EKChat
-INCLUDEPATH += .
+INCLUDEPATH += . src
 RESOURCES += resources.qrc
-
 
 QT += quick qml core gui declarative
 
 # Input
-SOURCES += src/*.cpp
-HEADERS += src/*.hpp
+SOURCES += src/chat/*.cpp src/*.cpp src/chat/net/*.cpp
+HEADERS += src/chat/*.hpp src/chat/net/*.hpp
 OBJECTS_DIR = bin
 MOC_DIR = moc
 

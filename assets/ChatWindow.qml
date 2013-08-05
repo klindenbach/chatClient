@@ -16,9 +16,16 @@ Window {
         height: 210
         text: "HELLO"
     }
+    TextInput {
+        id: input
+        objectName: "input"
+        anchors.top: chatText.bottom
+        width: 260
+    }
     Button { 
         objectName: "sendButton"
         text: "Send"
+        anchors.left: input.right
         anchors.bottom: win1.bottom
         anchors.top: chatText.bottom
     }

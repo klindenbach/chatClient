@@ -1,12 +1,12 @@
 #include <QApplication>
 
-#include "ChatApplication.hpp"
+#include "chat/ChatApplication.hpp"
 
 int main(int argc, char **argv) {
 
     QApplication app(argc, argv);
 
-    ChatApplication *chatApplication = new ChatApplication;
+    chat::ChatApplication *chatApplication = new chat::ChatApplication;
 
     return app.exec();
 }
