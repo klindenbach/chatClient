@@ -22,6 +22,12 @@ Window {
             text: "HELLO"
         }
     }
+    Rectangle {
+        width: 320
+        height: 1
+        color: "black"
+        anchors.top: chatScroll.bottom
+    }
     TextInput {
         id: input
         objectName: "input"
