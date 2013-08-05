@@ -1,5 +1,6 @@
-import QtQuick.Window 2.0
-import QtQuick        2.0
+import QtQuick.Window   2.0
+import QtQuick.Controls 1.0
+import QtQuick          2.0
 
 Window {
     id: win1;
@@ -9,17 +10,22 @@ Window {
     visible: true;
     title: "EK Chat";
 
-    Text { 
-        id: chatText
-        objectName: "chatText"
-        width: 320
+    ScrollView {
+        id: chatScroll
+        objectName: "chatScroll"
         height: 210
-        text: "HELLO"
+        width: 320
+        Text { 
+            id: chatText
+            objectName: "chatText"
+            width: 320
+            text: "HELLO"
+        }
     }
     TextInput {
         id: input
         objectName: "input"
-        anchors.top: chatText.bottom
+        anchors.top: chatScroll.bottom
         width: 260
     }
     Button { 
@@ -27,6 +33,6 @@ Window {
         text: "Send"
         anchors.left: input.right
         anchors.bottom: win1.bottom
-        anchors.top: chatText.bottom
+        anchors.top: chatScroll.bottom
     }
 }

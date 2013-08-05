@@ -74,8 +74,6 @@ void ChatApplication::onMessages(QNetworkReply *reply) {
     }
 
     _chatText->setProperty("text", string);
-
-    qDebug() << messages;
 }
 
 void ChatApplication::onClicked() {
