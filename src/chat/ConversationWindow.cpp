@@ -52,7 +52,7 @@ ConversationWindow::ConversationWindow(QString conversationID, QObject *parent):
 }
 
 void ConversationWindow::onTimeOut() {
-    QUrl url("http://localhost:8080/chatServer/getMessages");
+    QUrl url("http://chatServer:8080/chatServer/getMessages");
     QUrlQuery query;
     query.addQueryItem("after", "1");
     url.setQuery(query);
@@ -81,7 +81,7 @@ void ConversationWindow::onMessages(QNetworkReply *reply) {
 
 void ConversationWindow::onClicked() {
 
-    QUrl url("http://localhost:8080/chatServer/postMessage");
+    QUrl url("http://chatServer:8080/chatServer/postMessage");
     QUrlQuery query;
     query.addQueryItem("sender", chat::ContactsWindow::userName);
     query.addQueryItem("timeSent", QString::number(QDateTime::currentDateTime().toTime_t()));

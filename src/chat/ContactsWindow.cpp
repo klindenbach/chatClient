@@ -47,7 +47,7 @@ void ContactsWindow::onUserChanged() {
 
 void ContactsWindow::onTriggered(QString user) {
 
-    QUrl url("http://localhost:8080/chatServer/getConversationID");
+    QUrl url("http://chatServer:8080/chatServer/getConversationID");
     QUrlQuery query;
     query.addQueryItem("user1", user);
     query.addQueryItem("user2", _user->property("currentText").toString());
