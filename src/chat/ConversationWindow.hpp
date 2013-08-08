@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QNetworkReply>
 
+#include "chat/net/NetworkRequest.hpp"
+
 namespace chat {
 
 class ConversationWindow : public QObject {
@@ -13,8 +15,8 @@ class ConversationWindow : public QObject {
         ConversationWindow(QString conversationID, QObject *parent = 0);
         virtual ~ConversationWindow() {};
         Q_SLOT void onClicked();
-        Q_SLOT void onPostFinished(QNetworkReply*);
-        Q_SLOT void onMessages(QNetworkReply*);
+        Q_SLOT void onPostFinished(chat::net::NetworkRequest*);
+        Q_SLOT void onMessages(chat::net::NetworkRequest*);
         Q_SLOT void onTimeOut();
 
     private:

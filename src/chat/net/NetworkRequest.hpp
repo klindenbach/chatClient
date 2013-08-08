@@ -2,6 +2,7 @@
 #define _NETWORK_REQ_H_
 
 #include <QNetworkAccessManager>
+#include <QNetworkDiskCache>
 #include <QNetworkRequest>
 #include <QNetworkReply>
 
@@ -16,30 +17,25 @@ class NetworkRequest : public QObject, public QNetworkRequest {
     friend class NetworkAccessWrapper;
 
     signals:
-        void finished(QNetworkReply *reply);
+
+        void finished(chat::net::NetworkRequest *reply);
 
     public:
-        NetworkRequest(QUrl url) : QNetworkRequest(url) {}
+
+        NetworkRequest(QUrl url);
         void get();
         void post(QByteArray array);
-        void onFinished(QNetworkReply *reply);
+        Q_SLOT void onFinished();
+        int code(); 
+        QByteArray data();
 
     private:
 
-        static NetworkAccessWrapper _qNam;
-        static QHash<QNetworkReply*, NetworkRequest*> _replyHash;
-};
+        QByteArray gUncompress(const QByteArray &data);
 
-class NetworkAccessWrapper : public QNetworkAccessManager {
-    Q_OBJECT
-
-    public:
-        NetworkAccessWrapper() : QNetworkAccessManager() {
-            connect(this, SIGNAL(finished(QNetworkReply*)),  this, SLOT(onFinished(QNetworkReply*)));
-        }
-        Q_SLOT void onFinished(QNetworkReply *reply) {
-           NetworkRequest::_replyHash[reply]->onFinished(reply);
-        }
+        static QNetworkAccessManager _qNam;
+        int _code;
+        QByteArray _data;
 };
 
 }

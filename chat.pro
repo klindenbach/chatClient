@@ -17,6 +17,11 @@ HEADERS += src/chat/*.hpp src/chat/net/*.hpp
 OBJECTS_DIR = bin
 MOC_DIR = moc
 
-mac {
+LIBS += -lz
+
+QMAKE_CXXFLAGS += -Wall
+
+macx {
     CONFIG -= app_bundle
+    SPEC = macx-g++
 }

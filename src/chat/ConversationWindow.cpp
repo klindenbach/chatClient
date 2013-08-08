@@ -60,13 +60,13 @@ void ConversationWindow::onTimeOut() {
     NetworkRequest *request = new NetworkRequest(url);
     request->get();
 
-    connect(request, SIGNAL(finished(QNetworkReply*)), this, SLOT(onMessages(QNetworkReply*)));
-    connect(request, SIGNAL(finished(QNetworkReply*)), request, SLOT(deleteLater()));
+    connect(request, SIGNAL(finished(chat::net::NetworkRequest*)), this, SLOT(onMessages(chat::net::NetworkRequest*)));
+    connect(request, SIGNAL(finished(chat::net::NetworkRequest*)), request, SLOT(deleteLater()));
 }
 
-void ConversationWindow::onMessages(QNetworkReply *reply) {
+void ConversationWindow::onMessages(NetworkRequest *reply) {
 
-    QByteArray contents = reply->readAll();
+    QByteArray contents = reply->data();
     QJsonDocument jsonDoc = QJsonDocument::fromJson(contents);
     QVariantList messages = jsonDoc.object()["msg"].toObject()["messages"].toArray().toVariantList();
 
@@ -93,11 +93,10 @@ void ConversationWindow::onClicked() {
 
     _input->setProperty("text", "");
 
-    connect(request, SIGNAL(finished(QNetworkReply*)), this, SLOT(onPostFinished(QNetworkReply*)));
-    connect(request, SIGNAL(finished(QNetworkReply*)), request, SLOT(deleteLater()));
+    connect(request, SIGNAL(finished(chat::net::NetworkRequest*)), this, SLOT(onPostFinished(chat::net::NetworkRequest*)));
+    connect(request, SIGNAL(finished(chat::net::NetworkRequest*)), request, SLOT(deleteLater()));
 }
 
-void ConversationWindow::onPostFinished(QNetworkReply *reply) {
-    qDebug() << reply->readAll();
-    qDebug() << reply->errorString();
+void ConversationWindow::onPostFinished(NetworkRequest *reply) {
+    qDebug() << reply->data();
 }

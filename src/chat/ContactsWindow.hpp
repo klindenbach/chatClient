@@ -2,7 +2,8 @@
 #define CONTACTS_WINDOW_H_
 
 #include <QObject>
-#include <QNetworkReply>
+
+#include "chat/net/NetworkRequest.hpp"
 
 namespace chat {
 
@@ -15,7 +16,7 @@ class ContactsWindow : public QObject {
 
         ContactsWindow(QObject *parent = 0);
         Q_SLOT void onTriggered(QString user);
-        Q_SLOT void onConversationID(QNetworkReply* reply);
+        Q_SLOT void onConversationID(chat::net::NetworkRequest* reply);
         Q_SLOT void onUserChanged();
 
     private:

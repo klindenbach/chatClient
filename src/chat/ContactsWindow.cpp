@@ -56,12 +56,12 @@ void ContactsWindow::onTriggered(QString user) {
     NetworkRequest *request = new NetworkRequest(url);
     request->get();
 
-    connect(request, SIGNAL(finished(QNetworkReply*)), this, SLOT(onConversationID(QNetworkReply*)));
-    connect(request, SIGNAL(finished(QNetworkReply*)), request, SLOT(deleteLater()));
+    connect(request, SIGNAL(finished(chat::net::NetworkRequest*)), this, SLOT(onConversationID(chat::net::NetworkRequest*)));
+    connect(request, SIGNAL(finished(chat::net::NetworkRequest*)), request, SLOT(deleteLater()));
 }
 
-void ContactsWindow::onConversationID(QNetworkReply *reply) {
-    QByteArray contents = reply->readAll();
+void ContactsWindow::onConversationID(NetworkRequest *reply) {
+    QByteArray contents = reply->data();
     QJsonDocument jsonDoc = QJsonDocument::fromJson(contents);
     QString conversationID = jsonDoc.object()["msg"].toString();
 
