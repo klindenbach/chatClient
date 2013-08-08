@@ -17,8 +17,8 @@ using chat::net::NetworkRequest;
 QString ContactsWindow::userName;
 
 ContactsWindow::ContactsWindow(QObject *parent): QObject(parent) {
-    QQmlEngine *engine = new QQmlEngine;
-    QQmlComponent *component = new QQmlComponent(engine);
+    QQmlEngine *engine = new QQmlEngine(this);
+    QQmlComponent *component = new QQmlComponent(engine, this);
     component->loadUrl(QUrl("qrc:/assets/ContactsWindow.qml"));
 
     QObject *root;
@@ -34,6 +34,7 @@ ContactsWindow::ContactsWindow(QObject *parent): QObject(parent) {
     QObject *contactList = root->findChild<QObject*>("contactList");
     _user = root->findChild<QObject*>("userSelect");
 
+    connect(root, SIGNAL(visibleChanged(bool)), this, SLOT(deleteLater()));
     connect(contactList, SIGNAL(triggered(QString)), this, SLOT(onTriggered(QString)));
     connect(_user, SIGNAL(currentIndexChanged()), this, SLOT(onUserChanged()));
 }

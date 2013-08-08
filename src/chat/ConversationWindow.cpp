@@ -23,8 +23,8 @@ using chat::ConversationWindow;
 using chat::net::NetworkRequest;
 
 ConversationWindow::ConversationWindow(QString conversationID, QObject *parent): QObject(parent), _conversationID(conversationID) {
-    QQmlEngine *engine = new QQmlEngine;
-    QQmlComponent *component = new QQmlComponent(engine);
+    QQmlEngine *engine = new QQmlEngine(this);
+    QQmlComponent *component = new QQmlComponent(engine, this);
     component->loadUrl(QUrl("qrc:/assets/ChatWindow.qml"));
 
     QObject *root;
@@ -49,6 +49,8 @@ ConversationWindow::ConversationWindow(QString conversationID, QObject *parent):
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(onTimeOut()));
     timer->start(1000);
+
+    connect(root, SIGNAL(visibleChanged(bool)), this, SLOT(deleteLater()));
 }
 
 void ConversationWindow::onTimeOut() {
