@@ -3,9 +3,15 @@
 #include <zlib.h>
 
 using chat::net::NetworkRequest;
-using chat::net::NetworkAccessWrapper;
 
-QNetworkAccessManager NetworkRequest::_qNam;
+NetworkRequest::NetworkAccessWrapper NetworkRequest::_qNam;
+//QNetworkDiskCache NetworkRequest::NetworkAccessWrapper::_cache(QNetworkDiskCache());
+
+NetworkRequest::NetworkAccessWrapper::NetworkAccessWrapper() : QNetworkAccessManager() {
+    _cache.setCacheDirectory(".");
+    _cache.setMaximumCacheSize(50 * 1024 * 1024);
+    setCache(&_cache);
+}
 
 NetworkRequest::NetworkRequest(QUrl url) : QNetworkRequest(url) {
     setRawHeader("accept-encoding", "gzip");      
@@ -13,6 +19,7 @@ NetworkRequest::NetworkRequest(QUrl url) : QNetworkRequest(url) {
 }
 
 void NetworkRequest::get() {
+    setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferCache);
     QNetworkReply *reply = _qNam.get(*this);
     connect(reply, SIGNAL(finished()), this, SLOT(onFinished()));
 }

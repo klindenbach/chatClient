@@ -33,7 +33,12 @@ class NetworkRequest : public QObject, public QNetworkRequest {
 
         QByteArray gUncompress(const QByteArray &data);
 
-        static QNetworkAccessManager _qNam;
+        static class NetworkAccessWrapper : public QNetworkAccessManager {
+           public: 
+                NetworkAccessWrapper(); 
+           private:
+                QNetworkDiskCache _cache;
+        } _qNam;
         int _code;
         QByteArray _data;
 };

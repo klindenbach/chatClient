@@ -20,6 +20,9 @@ qrc_*.cpp
 Makefile
 .qmake.cache
 
+data7
+.DS_Store
+
 *-build-*
 EKChat
 
