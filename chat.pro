@@ -17,7 +17,12 @@ HEADERS += src/chat/*.hpp src/chat/net/*.hpp
 OBJECTS_DIR = bin
 MOC_DIR = moc
 
+CONFIG -= app_bundle
+
 LIBS += -lz
+
+CONFIG += console
+CONFIG += debug
 
 QMAKE_CXXFLAGS += -Wall
 

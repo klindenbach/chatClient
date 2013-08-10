@@ -17,11 +17,13 @@ EKChat
 *.pro.user.*
 moc_*.cpp
 qrc_*.cpp
-Makefile
+Makefile*
 .qmake.cache
 
 data7
 .DS_Store
+release
+debug
 
 *-build-*
 EKChat
