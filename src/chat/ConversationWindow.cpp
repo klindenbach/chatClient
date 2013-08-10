@@ -57,6 +57,7 @@ void ConversationWindow::onTimeOut() {
     QUrl url("http://chatServer:8080/chatServer/getMessages");
     QUrlQuery query;
     query.addQueryItem("after", "1");
+    query.addQueryItem("conversation", _conversationID);
     url.setQuery(query);
 
     NetworkRequest *request = new NetworkRequest(url);
