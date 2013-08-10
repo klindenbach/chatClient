@@ -32,9 +32,7 @@ QString ChatTranslator::getLanguage() {
     if (!sl.isEmpty()) {
         return sl.first();
     }
-    return QLocale::languageToString(
-                        QLocale::system().language()
-                                    ).toLower().left(2);
+    return QLocale::languageToString(QLocale::system().language()).toLower().left(2);
 }
 
 }
