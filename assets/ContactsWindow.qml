@@ -8,7 +8,7 @@ Window {
     width: 320;
     height: 240;
     visible: true;
-    title: "EK Chat";
+    title: qsTr("EK Chat");
 
     ListView {
         id: contactList

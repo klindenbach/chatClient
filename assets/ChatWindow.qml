@@ -8,7 +8,7 @@ Window {
     width: 320;
     height: 240;
     visible: true;
-    title: "EK Chat";
+    title: qsTr("EK Chat");
 
     ScrollView {
         id: chatScroll
@@ -36,7 +36,7 @@ Window {
     }
     Button { 
         objectName: "sendButton"
-        text: "Send"
+        text: qsTr("Send")
         anchors.left: input.right
         anchors.bottom: win1.bottom
         anchors.top: chatScroll.bottom

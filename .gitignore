@@ -19,6 +19,7 @@ moc_*.cpp
 qrc_*.cpp
 Makefile*
 .qmake.cache
+*.qm
 
 data7
 .DS_Store

@@ -14,6 +14,7 @@ QT += quick qml core gui declarative
 # Input
 SOURCES += src/chat/*.cpp src/*.cpp src/chat/net/*.cpp
 HEADERS += src/chat/*.hpp src/chat/net/*.hpp
+TRANSLATIONS = translations/fr.ts
 OBJECTS_DIR = bin
 MOC_DIR = moc
 

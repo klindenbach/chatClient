@@ -30,7 +30,7 @@ ConversationWindow::ConversationWindow(QString conversationID, QObject *parent):
     QObject *root;
     if (component->isReady()) {
         root = component->create();
-        root->setProperty("title", "Conversation ID: " + conversationID);
+        root->setProperty("title", tr("Conversation ID: ") + conversationID);
     }
     else {
         qWarning() << component->errorString();

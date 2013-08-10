@@ -19,7 +19,9 @@ ChatTranslator::ChatTranslator(QApplication &app) {
                        QLibraryInfo::location(QLibraryInfo::TranslationsPath));
     app.installTranslator(&_qtTranslator);
 
-    _appTranslator.load(lang);
+    if (!_appTranslator.load(lang, "translations")) {
+        qDebug() << "load failed";
+    }
     app.installTranslator(&_appTranslator);
 
     qDebug() << "Detected language is: " << lang;
