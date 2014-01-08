@@ -13,23 +13,31 @@
 namespace chat {
 
 class FileExplorer : public QObject {
+
     public:
         FileExplorer(QString *root, QObject *parent=0);
         ~FileExplorer();
         void show();
 
         QWidget *getBaseWidget() const;
-        void setBaseWidget(QWidget *baseW);
+        inline void setBaseWidget(QWidget *baseW);
+	inline void changeBaseWidgetOwnerShip(bool ownershipBool);
+
         void freeBaseWidget();
 
-        QStringList getMatchesViaDialog(const QString &srcPath, const QString &filter);
+        QStringList getMatchesViaDialog(
+	  const QString &srcPath, const QString &filter
+	);
+
         QFile *openFileForUpload();
+
     private:
+	bool ownsBaseWidget;
         QString *lastUsedPath;
         QString *rootPath;
         QWidget *baseWidget;
 
-        void setLastUsedPath(const QString newPath);
+        inline void setLastUsedPath(const QString newPath);
 };
 }
 #endif // FILEEXPLORER_HPP
