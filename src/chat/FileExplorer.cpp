@@ -15,8 +15,8 @@ FileExplorer::~FileExplorer() {
         delete this->rootPath;
     }
 
-    if (this->lastUsed != NULL) {
-      delete this->lastUsed;
+    if (this->lastUsedPath != NULL) {
+      delete this->lastUsedPath;
     }
 
     freeBaseWidget();
@@ -32,7 +32,7 @@ inline void FileExplorer::setBaseWidget(QWidget *baseW) {
     this->baseWidget = baseW;
 }
 
-inline void changeBaseWidgetOwnerShip(bool ownershipBool) {
+inline void FileExplorer::changeBaseWidgetOwnerShip(bool ownershipBool) {
   this->ownsBaseWidget = ownershipBool;
 }
 
